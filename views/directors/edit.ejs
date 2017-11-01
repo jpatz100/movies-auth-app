@@ -1,0 +1,17 @@
+<h1>Edit a director</h1>
+
+<form action="<%= `/directors/${director.id}?_method=PUT` %>" method="POST">
+  <label for="first_name">First Name</label>
+  <input id="title" type="text" name="first_name" value="<%= director.first_name %>" />
+
+  <br />
+
+  <label for="last_name">Last Name</label>
+  <input id="description" type="text" name="last_name" value="<%= director.last_name %>" />
+
+  <br />
+
+  <input type="submit" value="Save changes" />
+</form>
+
+<a href="<%= `/directors/${director.id}` %>">Cancel</a>

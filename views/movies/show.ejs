@@ -1,0 +1,10 @@
+<h1><%= movie.title %></h1>
+
+<p><%= movie.description %></p>
+
+<a href="/movies">Back to movies index</a>
+<a href="<%= `/movies/${movie.id}/edit`%>">Edit movie details</a>
+
+<form action="<%= `/movies/${movie.id}?_method=DELETE` %>" method="POST">
+    <input type="submit" value="Delete" />
+  </form>

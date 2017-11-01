@@ -1,0 +1,12 @@
+<h1>All the directors</h1>
+
+<% directors.forEach(director => { %>
+  <div class="director">
+    <h4>
+      <a href="<%= `/directors/${director.id}` %>">
+        <%= director.first_name%>
+      </a>
+    </h4>
+    <p><%= director.last_name %></p>
+  </div>
+<% }) %>

@@ -1,0 +1,10 @@
+<h1><%= director.first_name %></h1>
+
+<h1><%= director.last_name %></h1>
+
+<a href="/directors">Back to directors index</a>
+<a href='<%= `/directors/${director.id}/edit` %>'>Edit Director Details</a>
+
+<form action="<%= `/directors/${director.id}?_method=DELETE` %>" method="POST">
+    <input type="submit" value="Delete" />
+</form>

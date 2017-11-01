@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS movies (
+  id BIGSERIAL PRIMARY KEY,
+  title VARCHAR(255),
+  description TEXT
+);
+
+CREATE TABLE IF NOT EXISTS directors (
+  id BIGSERIAL PRIMARY KEY,
+  first_name VARCHAR(255),
+  last_name VARCHAR(255)
+);
