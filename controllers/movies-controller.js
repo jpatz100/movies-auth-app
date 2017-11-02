@@ -36,17 +36,25 @@
   moviesController.edit = (req, res) => {
     Movie.findById(req.params.id)
       .then(movie => {
-        res.render('movies/edit', { movie: movie })
-      })
+        Director.findAll()
+        .then(directors => {
+          res.render('movies/edit', { movie, directors })
+        })
       .catch(err => {
         res.status(400).json(err);
       });
+    })
+    .catch(err => {
+      res.status(400).json(err);
+    });
   };
 
   moviesController.update = (req, res) => {
+    console.log('req.body.director_id:',req.body.director_id);
     Movie.update({
         title: req.body.title,
-        description: req.body.description
+        description: req.body.description,
+        director_id: parseInt(req.body.director_id)
       }, req.params.id)
       .then(() => {
         res.redirect(`/movies/${req.params.id}`)

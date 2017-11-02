@@ -15,10 +15,11 @@ Movie.update = (movie, id) => {
         `
         UPDATE movies SET
         title = $1,
-        description = $2
-        WHERE id = $3
+        description = $2,
+        director_id = $3
+        WHERE id = $4
         `,
-        [movie.title, movie.description, id]
+        [movie.title, movie.description, movie.director_id, id]
     );
 };
 
