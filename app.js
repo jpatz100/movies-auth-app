@@ -9,9 +9,30 @@ app.use(methodOverride('_method'));
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// add below
+require('dotenv').config();
+
+const cookieParser = require('cookie-parser');
+app.use(cookieParser(process.env.SESSION_KEY));
+
+const session = require('express-session');
+app.use(session({
+  secret: process.env.SESSION_KEY,
+  resave: false,
+  saveUninitialized: true,
+}));
+
+const passport = require('passport');
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
+const authRouter = require('./routes/auth-routes');
+app.use('/auth', authRouter);
+
+const authHelpers = require('./services/auth/auth-helpers');
+app.use(authHelpers.loginRequired)
 
 const moviesRouter = require('./routes/movies-routes');
 app.use('/movies', moviesRouter)
