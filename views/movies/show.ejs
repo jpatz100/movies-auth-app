@@ -2,6 +2,10 @@
 
 <p><%= movie.description %></p>
 
+<% if (director) { %>
+  <h4>Directed by: <%= `${director.first_name} ${director.last_name}` %></h4>
+<% } %>
+
 <a href="/movies">Back to movies index</a>
 <a href="<%= `/movies/${movie.id}/edit`%>">Edit movie details</a>
 

@@ -1,4 +1,5 @@
   const Movie = require('../models/movie');
+  const Director = require('../models/director');
   
   const moviesController = {};
   
@@ -15,7 +16,17 @@
   moviesController.show = (req, res) => {
     Movie.findById(req.params.id)
       .then(movie => {
-        res.render('movies/show', { movie: movie })
+        if (movie.director_id) {
+          Director.findById(movie.director_id)
+            .then(director => {
+              res.render('movies/show', { movie, director })
+            })
+            .catch(err => {
+              res.status(400).json(err);
+            });
+        } else {
+          res.render('movies/show', { movie: movie, director: undefined })
+        }
       })
       .catch(err => {
         res.status(400).json(err);
@@ -46,13 +57,21 @@
   };
 
   moviesController.new = (req, res) => {
-    res.render('movies/new')
+    Director.findAll()
+      .then(directors => {
+        res.render('movies/new', { directors: directors })
+      })
+      .catch(err => {
+        res.status(400).json(err);
+      });
   };
+  
 
   moviesController.create = (req, res) => {
     Movie.create({
         title: req.body.title,
-        description: req.body.description
+        description: req.body.description,
+        director_id: req.body.director_id
       })
       .then(movie => {
         res.redirect(`/movies/${movie.id}`)
@@ -71,5 +90,5 @@
         res.status(400).json(err);
       });
   };
-  
+
   module.exports = moviesController;

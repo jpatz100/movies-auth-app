@@ -26,10 +26,10 @@ Movie.create = movie => {
     return db.one(
       `
         INSERT INTO movies
-        (title, description)
-        VALUES ($1, $2) RETURNING *
+        (title, description, director_id)
+        VALUES ($1, $2, $3) RETURNING *
       `,
-      [movie.title, movie.description]
+      [movie.title, movie.description, movie.director_id]
     );
   };
 
